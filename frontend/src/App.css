@@ -1,3 +1,6 @@
+/* ===================================================
+   BASE STYLES
+   =================================================== */
 .app {
   min-height: 100vh;
   font-family: 'Inter', sans-serif;
@@ -6,6 +9,9 @@
   flex-direction: column;
 }
 
+/* ===================================================
+   HEADER STYLES
+   =================================================== */
 .header {
   display: flex;
   justify-content: center;
@@ -20,6 +26,9 @@
   font-weight: bold;
 }
 
+/* ===================================================
+   MAIN CONTENT AREA
+   =================================================== */
 .main-content {
   flex: 1;
   display: flex;
@@ -32,6 +41,7 @@
   margin: 0 auto;
 }
 
+/* Logo and branding elements */
 .logo-container-main {
   margin-bottom: 2.5rem;
   display: flex;
@@ -54,6 +64,7 @@
   border-radius: 12px;
 }
 
+/* Text content elements */
 .tagline {
   font-size: 1.8rem;
   color: #333;
@@ -69,6 +80,9 @@
   line-height: 1.6;
 }
 
+/* ===================================================
+   MENTOR INFO SECTION
+   =================================================== */
 .mentor-info {
   max-width: 600px;
   margin-bottom: 3rem;
@@ -85,6 +99,7 @@
   color: #555;
 }
 
+/* Primary action button */
 .mentor-button {
   padding: 1.2rem 2.5rem;
   background-color: #4a6fa5;
@@ -116,6 +131,10 @@
   height: 24px;
 }
 
+/* ===================================================
+   MODAL COMPONENTS
+   =================================================== */
+/* Modal overlay - creates the dimmed background */
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -131,6 +150,7 @@
   animation: fadeIn 0.3s ease;
 }
 
+/* Modal window container */
 .modal-content {
   background-color: rgba(255, 255, 255, 0.85);
   padding: 1.5rem;
@@ -147,6 +167,7 @@
   flex-direction: column;
 }
 
+/* Modal close button */
 .close-button {
   position: absolute;
   top: 1rem;
@@ -173,7 +194,9 @@
   transform: rotate(90deg);
 }
 
-/* Add animations */
+/* ===================================================
+   ANIMATIONS
+   =================================================== */
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
@@ -184,6 +207,10 @@
   to { transform: translateY(0); opacity: 1; }
 }
 
+/* ===================================================
+   SUPPORT ROOM COMPONENTS
+   =================================================== */
+/* Container for the support room interface */
 .support-room {
   height: 100%;
   width: 100%;
@@ -192,6 +219,7 @@
   overflow: hidden;
 }
 
+/* User registration form */
 .name-form {
   display: flex;
   flex-direction: column;
@@ -246,6 +274,9 @@
   background-color: #555;
 }
 
+/* ===================================================
+   RESPONSIVE STYLES
+   =================================================== */
 @media (max-width: 768px) {
   .logo-animation-main {
     max-height: 180px;
