@@ -5,7 +5,7 @@ Node.js and npm
 LiveKit account and API credentials
 OpenAI API key
 
-# Create a virtual environment named 'ai'
+# Create a virtual environment named 'ai' (can be any name)
 
 python -m venv ai
 
@@ -22,8 +22,6 @@ source ai/bin/activate
 cd backend
 pip install -r requirements.txt
 
-yarn add @livekit/components-react @livekit/components-styles livekit-client
-
 # Check if the .env file contains all the required values in the backend directory
 
 OPENAI_API_KEY
@@ -35,12 +33,14 @@ LIVEKIT_API_KEY
 
 VITE_LIVEKIT_URL (same as LIVEKIT_URL)
 
-# Step 4: Install Frontend Dependencies
+# Install Frontend Dependencies
 
 cd ../frontend
 npm install
 
-### open 3 different terminal
+yarn add @livekit/components-react @livekit/components-styles livekit-client
+
+# open 3 different terminal
 
 ### 1st terminal
 
