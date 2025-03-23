@@ -44,8 +44,6 @@ npm install
 
 ### 1st terminal
 
-# Run the Backend Server
-
 ai\Scripts\activate
 
 cd backend
