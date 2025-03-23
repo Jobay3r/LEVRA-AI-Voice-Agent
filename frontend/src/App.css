@@ -1,117 +1,76 @@
 .app {
   min-height: 100vh;
   font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
+  background-image: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  display: flex;
+  flex-direction: column;
 }
 
 .header {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   padding: 1rem 2rem;
-  background-color: #d52b1e;
+  background-color: #4a6fa5;
   color: white;
 }
 
 .logo {
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   font-weight: bold;
 }
 
-nav {
+.main-content {
+  flex: 1;
   display: flex;
-  gap: 2rem;
-}
-
-nav a {
-  color: white;
-  text-decoration: none;
-  font-weight: 500;
-}
-
-nav a:hover {
-  text-decoration: underline;
-}
-
-.hero {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
   text-align: center;
-  padding: 4rem 2rem;
-  background-color: #f5f5f5;
 }
 
-.hero h1 {
+.mentor-info {
+  max-width: 600px;
+  margin-bottom: 3rem;
+}
+
+.mentor-info h1 {
   font-size: 2.5rem;
   margin-bottom: 1rem;
   color: #333;
 }
 
-.search-bar {
-  max-width: 600px;
-  margin: 2rem auto;
-  display: flex;
-  gap: 0.5rem;
+.mentor-info p {
+  font-size: 1.2rem;
+  color: #555;
 }
 
-.search-bar input {
-  flex: 1;
-  padding: 0.75rem;
-  border: 2px solid #ddd;
-  border-radius: 4px;
-  font-size: 1rem;
-}
-
-.search-bar button {
-  padding: 0.75rem 1.5rem;
-  background-color: #d52b1e;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.categories {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 2rem;
-  padding: 2rem;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.category-card {
-  text-align: center;
-  padding: 1rem;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  transition: transform 0.2s;
-}
-
-.category-card:hover {
-  transform: translateY(-5px);
-}
-
-.category-card img {
-  width: 100%;
-  border-radius: 4px;
-  margin-bottom: 1rem;
-}
-
-.support-button {
-  position: fixed;
-  bottom: 2rem;
-  right: 2rem;
+.mentor-button {
   padding: 1rem 2rem;
-  background-color: #d52b1e;
+  background-color: #4a6fa5;
   color: white;
   border: none;
   border-radius: 50px;
   cursor: pointer;
-  font-size: 1rem;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-  transition: transform 0.2s;
+  font-size: 1.2rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s, background-color 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 2rem;
 }
 
-.support-button:hover {
+.mentor-button:hover {
   transform: scale(1.05);
+  background-color: #3b5a84;
+}
+
+.mentor-button svg {
+  width: 24px;
+  height: 24px;
 }
 
 .modal-overlay {
@@ -130,11 +89,12 @@ nav a:hover {
 .modal-content {
   background-color: white;
   padding: 2rem;
-  border-radius: 8px;
+  border-radius: 12px;
   position: relative;
-  width: 80%;
+  width: 90%;
   max-width: 800px;
   height: 80vh;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 }
 
 .close-button {
@@ -153,15 +113,6 @@ nav a:hover {
   width: 100%;
 }
 
-.loading {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  font-size: 1.2rem;
-  color: #666;
-}
-
 .name-form {
   display: flex;
   flex-direction: column;
@@ -178,6 +129,12 @@ nav a:hover {
   margin-bottom: 1rem;
 }
 
+.name-form p {
+  text-align: center;
+  margin-bottom: 1rem;
+  color: #666;
+}
+
 .name-form input {
   width: 100%;
   padding: 0.75rem;
@@ -189,7 +146,7 @@ nav a:hover {
 .name-form button {
   width: 100%;
   padding: 0.75rem;
-  background-color: #d52b1e;
+  background-color: #4a6fa5;
   color: white;
   border: none;
   border-radius: 4px;
@@ -199,7 +156,7 @@ nav a:hover {
 }
 
 .name-form button:hover {
-  background-color: #b82219;
+  background-color: #3b5a84;
 }
 
 .name-form .cancel-button {

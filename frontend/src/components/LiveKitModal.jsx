@@ -10,7 +10,7 @@ const LiveKitModal = ({ setShowSupport }) => {
 
   const getToken = useCallback(async (userName) => {
     try {
-      console.log("run")
+      console.log("Connecting to Career Mentor")
       const response = await fetch(
         `/api/getToken?name=${encodeURIComponent(userName)}`
       );
@@ -29,13 +29,19 @@ const LiveKitModal = ({ setShowSupport }) => {
     }
   };
 
+  const handleModalClose = () => {
+    setShowSupport(false);
+  };
+
   return (
     <div className="modal-overlay">
       <div className="modal-content">
+        <button className="close-button" onClick={handleModalClose}>×</button>
         <div className="support-room">
           {isSubmittingName ? (
             <form onSubmit={handleNameSubmit} className="name-form">
-              <h2>Enter your name to connect with support</h2>
+              <h2>Connect with Your Career Mentor</h2>
+              <p>Enter your name to start a personalized career guidance session</p>
               <input
                 type="text"
                 value={name}
@@ -43,7 +49,7 @@ const LiveKitModal = ({ setShowSupport }) => {
                 placeholder="Your name"
                 required
               />
-              <button type="submit">Connect</button>
+              <button type="submit">Start Career Mentoring</button>
               <button
                 type="button"
                 className="cancel-button"
