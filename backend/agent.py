@@ -89,18 +89,38 @@ async def entrypoint(ctx: JobContext):
         assistant.start(ctx.room)
         
         session = model.sessions[0]
-        session.conversation.item.create(
-            llm.ChatMessage(
-                role="assistant",
-                content=WELCOME_MESSAGE
-            )
-        )
-        session.response.create()
+        # Only send welcome message once at the beginning
+        welcome_sent = False
+        
+        @session.on("session_started")
+        def on_session_started():
+            nonlocal welcome_sent
+            if not welcome_sent:
+                session.conversation.item.create(
+                    llm.ChatMessage(
+                        role="assistant",
+                        content=WELCOME_MESSAGE
+                    )
+                )
+                session.response.create()
+                welcome_sent = True
         
         @session.on("user_speech_committed")
         def on_user_speech_committed(msg: llm.ChatMessage):
+            # Only process if there's actual content from the user
+            if not msg.content:
+                return
+                
             if isinstance(msg.content, list):
-                msg.content = "\n".join("[image]" if isinstance(x, llm.ChatImage) else x for x in msg)
+                # Filter out empty messages
+                content_items = [x for x in msg.content if x and (not isinstance(x, str) or x.strip())]
+                if not content_items:
+                    return
+                    
+                msg.content = "\n".join("[image]" if isinstance(x, llm.ChatImage) else x for x in content_items)
+            elif isinstance(msg.content, str) and not msg.content.strip():
+                # Skip empty string messages
+                return
                 
             if assistant_fnc.has_profile():
                 handle_query(msg)
