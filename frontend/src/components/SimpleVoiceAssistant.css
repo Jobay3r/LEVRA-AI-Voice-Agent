@@ -4,7 +4,27 @@
   align-items: center;
   width: 100%;
   height: 100%;
-  padding: 20px;
+  padding: 16px;
+  background-color: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+}
+
+.logo-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.logo-animation {
+  width: auto;
+  height: 100px;
+  border-radius: 10px;
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.08));
 }
 
 .assistant-header {
@@ -25,11 +45,34 @@
 
 .visualizer-container {
   width: 100%;
-  height: 200px;
-  background-color: rgba(74, 111, 165, 0.05);
-  border-radius: 10px;
-  padding: 10px;
-  margin-bottom: 20px;
+  height: 120px;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.3));
+  border-radius: 16px;
+  padding: 16px;
+  margin-bottom: 24px;
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.03);
+  border: 1px solid rgba(230, 230, 230, 0.8);
+  overflow: hidden;
+  position: relative;
+}
+
+/* Hide the problematic rightmost bars */
+.visualizer-container .lk-bar-visualizer {
+  width: calc(100% - 4px);
+  overflow: hidden;
+}
+
+/* Ensure bars are evenly distributed */
+.visualizer-container .lk-audio-bar {
+  margin: 0 2px;
+}
+
+/* Hide the last two bars from right side which might be causing issues */
+.visualizer-container .lk-audio-bar:nth-last-child(1),
+.visualizer-container .lk-audio-bar:nth-last-child(2) {
+  visibility: hidden;
+  width: 0;
+  margin: 0;
 }
 
 .control-section {
@@ -37,59 +80,65 @@
 }
 
 .conversation {
-  padding: 20px;
-  height: 350px;
+  padding: 16px;
+  height: 280px;
   overflow-y: auto;
   width: 100%;
-  border: 1px solid #eaeaea;
-  border-radius: 8px;
-  margin-top: 20px;
-  background-color: #fff;
+  border: 1px solid rgba(230, 230, 230, 0.8);
+  border-radius: 16px;
+  margin-top: 16px;
+  background-color: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(5px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
 }
 
 .message {
   margin-bottom: 15px;
-  padding: 10px 15px;
+  padding: 12px 16px;
   border-radius: 18px;
   max-width: 80%;
   position: relative;
 }
 
 .message-agent {
-  background-color: #4a6fa5;
+  background-color: rgba(74, 111, 165, 0.9);
   color: white;
   border-top-left-radius: 4px;
   margin-right: auto;
   margin-left: 10px;
+  box-shadow: 0 2px 8px rgba(74, 111, 165, 0.2);
 }
 
 .message-user {
-  background-color: #e9f0f8;
+  background-color: rgba(240, 245, 250, 0.9);
   color: #333;
   border-top-right-radius: 4px;
   margin-left: auto;
   margin-right: 10px;
   text-align: right;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
 }
 
 .message-text {
-  line-height: 1.4;
+  line-height: 1.5;
   font-size: 0.95rem;
 }
 
 .tips-section {
   margin-top: 10px;
-  background-color: #f5f7fa;
-  border-radius: 8px;
-  padding: 15px;
-  font-size: 0.9rem;
+  background-color: rgba(245, 247, 250, 0.7);
+  border-radius: 12px;
+  padding: 18px;
+  font-size: 0.95rem;
+  border: 1px solid rgba(230, 230, 230, 0.6);
 }
 
 .tips-section h3 {
   color: #4a6fa5;
-  margin-bottom: 10px;
+  margin-bottom: 14px;
   font-size: 1.1rem;
   text-align: center;
+  font-weight: 500;
 }
 
 .tips-list {
@@ -98,9 +147,10 @@
 }
 
 .tips-list li {
-  margin-bottom: 8px;
-  padding-left: 15px;
+  margin-bottom: 10px;
+  padding-left: 18px;
   position: relative;
+  color: #555;
 }
 
 .tips-list li:before {
@@ -108,4 +158,25 @@
   position: absolute;
   left: 0;
   color: #4a6fa5;
+  font-weight: bold;
+}
+
+/* LiveKit device menu styling override */
+:global(.lk-device-menu) {
+  background-color: rgba(255, 255, 255, 0.95) !important;
+  border: 1px solid rgba(220, 220, 220, 0.7) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08) !important;
+  backdrop-filter: blur(8px) !important;
+}
+
+:global(.lk-device-menu button) {
+  background-color: rgba(245, 247, 250, 0.7) !important;
+  border: 1px solid rgba(230, 230, 230, 0.5) !important;
+  margin: 6px !important;
+  border-radius: 8px !important;
+}
+
+:global(.lk-device-menu button:hover) {
+  background-color: rgba(233, 240, 248, 0.9) !important;
 }

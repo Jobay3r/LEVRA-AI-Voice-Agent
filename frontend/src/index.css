@@ -1,22 +1,49 @@
+/* =============================================
+   BASE STYLES AND GLOBAL TYPOGRAPHY SETTINGS
+   ============================================= */
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
+  /* Optimize text rendering */
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Reset styles for consistent cross-browser behavior */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+/* Base body styling */
 body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
+}
+
+/* =============================================
+   LIVEKIT COMPONENT STYLE OVERRIDES
+   Custom styling for LiveKit UI components
+   ============================================= */
+.lk-device-menu {
+  background-color: white !important;
+  border: 1px solid #ddd !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+}
+
+.lk-device-menu button {
+  background-color: #f5f7fa !important;
+  border: 1px solid #eaeaea !important;
+  margin: 4px !important;
+}
+
+.lk-device-menu button:hover {
+  background-color: #e9f0f8 !important;
 }

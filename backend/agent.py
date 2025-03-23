@@ -15,11 +15,22 @@ import sys
 import importlib
 import inspect
 
-# Load environment variables first - make sure this is at the very top
+# Load environment variables first to ensure API keys are available
 load_dotenv(override=True)
 
-# Setup OpenAI globally
+# OPENAI CONFIGURATION
+# ------------------------------------------------------------------------
+
 def setup_openai_api():
+    """
+    Configure OpenAI API with the key from environment variables.
+    Validates presence of API key and provides feedback.
+    
+    Returns:
+        str: The OpenAI API key if valid
+        
+    Exits program if API key is missing or invalid.
+    """
     openai_api_key = os.getenv("OPENAI_API_KEY")
     
     if not openai_api_key:
@@ -48,8 +59,18 @@ except Exception as e:
     traceback.print_exc()
     sys.exit(1)
 
-# Configure the model without patching
 def configure_model(api_key):
+    """
+    Configure the OpenAI realtime model for conversation.
+    
+    Args:
+        api_key (str): OpenAI API key for authentication
+        
+    Returns:
+        RealtimeModel: Configured OpenAI model for realtime conversation
+        
+    Exits program if model configuration fails.
+    """
     try:
         # Create the model with the API key
         model = lk_openai.realtime.RealtimeModel(
@@ -66,10 +87,22 @@ def configure_model(api_key):
         traceback.print_exc()
         sys.exit(1)
 
+# LIVEKIT AGENT IMPLEMENTATION
+# ------------------------------------------------------------------------
+
 async def entrypoint(ctx: JobContext):
+    """
+    Main entry point for the LiveKit agent.
+    
+    Initializes OpenAI, connects to LiveKit room, and manages the conversation flow.
+    
+    Args:
+        ctx (JobContext): The LiveKit job context providing room access
+    """
     # Set up OpenAI API globally
     openai_api_key = setup_openai_api()
     
+    # Connect to LiveKit room and wait for participant
     await ctx.connect(auto_subscribe=AutoSubscribe.SUBSCRIBE_ALL)
     await ctx.wait_for_participant()
     
@@ -83,36 +116,66 @@ async def entrypoint(ctx: JobContext):
         print("Creating RealtimeModel with explicit API key")
         model = configure_model(openai_api_key)
         
+        # Initialize assistant functionality and multimodal agent
         assistant_fnc = AssistantFnc()
         assistant = MultimodalAgent(model=model, fnc_ctx=assistant_fnc)
         
+        # Start the assistant in the room
+        print("Starting assistant in room...")
         assistant.start(ctx.room)
+        print("Assistant started successfully")
         
+        # Get the first session and prepare for conversation
+        if not model.sessions:
+            print("ERROR: No sessions available after starting the assistant")
+            sys.exit(1)
+            
         session = model.sessions[0]
-        # Only send welcome message once at the beginning
+        print(f"Session initialized with ID: {session.id if hasattr(session, 'id') else 'unknown'}")
         welcome_sent = False
+        
+        # EVENT HANDLERS
+        # ------------------------------------------------------------
         
         @session.on("session_started")
         def on_session_started():
+            """
+            Handle session start event.
+            Sends welcome message to the user only once.
+            """
             nonlocal welcome_sent
             if not welcome_sent:
-                session.conversation.item.create(
-                    llm.ChatMessage(
-                        role="assistant",
-                        content=WELCOME_MESSAGE
+                print("Sending welcome message to user")  # Debug log
+                try:
+                    session.conversation.item.create(
+                        llm.ChatMessage(
+                            role="assistant",
+                            content=WELCOME_MESSAGE
+                        )
                     )
-                )
-                session.response.create()
-                welcome_sent = True
+                    session.response.create()
+                    welcome_sent = True
+                    print("Welcome message sent successfully")  # Debug log
+                except Exception as e:
+                    print(f"Error sending welcome message: {str(e)}")
+                    import traceback
+                    traceback.print_exc()
         
         @session.on("user_speech_committed")
         def on_user_speech_committed(msg: llm.ChatMessage):
-            # Only process if there's actual content from the user
+            """
+            Process user speech after it's been committed.
+            Routes to profile creation or query handling based on state.
+            
+            Args:
+                msg (ChatMessage): The message from the user
+            """
+            # Filter out empty messages
             if not msg.content:
                 return
                 
             if isinstance(msg.content, list):
-                # Filter out empty messages
+                # Process multimodal content (text and images)
                 content_items = [x for x in msg.content if x and (not isinstance(x, str) or x.strip())]
                 if not content_items:
                     return
@@ -121,13 +184,24 @@ async def entrypoint(ctx: JobContext):
             elif isinstance(msg.content, str) and not msg.content.strip():
                 # Skip empty string messages
                 return
-                
+            
+            # Route message based on user profile state    
             if assistant_fnc.has_profile():
                 handle_query(msg)
             else:
                 find_profile(msg)
             
+        # CONVERSATION FLOW HANDLERS
+        # ------------------------------------------------------------
+        
         def find_profile(msg: llm.ChatMessage):
+            """
+            Handle conversation when user profile doesn't exist.
+            Triggers skill assessment flow.
+            
+            Args:
+                msg (ChatMessage): The message from the user
+            """
             session.conversation.item.create(
                 llm.ChatMessage(
                     role="system",
@@ -137,6 +211,12 @@ async def entrypoint(ctx: JobContext):
             session.response.create()
             
         def handle_query(msg: llm.ChatMessage):
+            """
+            Handle regular conversation when user profile exists.
+            
+            Args:
+                msg (ChatMessage): The message from the user
+            """
             session.conversation.item.create(
                 llm.ChatMessage(
                     role="user",
@@ -151,5 +231,8 @@ async def entrypoint(ctx: JobContext):
         traceback.print_exc()
         sys.exit(1)
     
+# APPLICATION ENTRY POINT
+# ------------------------------------------------------------------------
+
 if __name__ == "__main__":
     cli.run_app(WorkerOptions(entrypoint_fnc=entrypoint))

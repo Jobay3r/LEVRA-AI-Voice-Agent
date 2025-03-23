@@ -1,19 +1,30 @@
 import enum
-from typing import Annotated, Dict, Any
+from typing import Annotated
 import logging
-from livekit import agents
-from livekit.agents import llm  # Correct import for FunctionContext
+from livekit.agents import llm
 from db_driver import DB
 
+# Configure logging
 logger = logging.getLogger(__name__)
 
+# DATA MODELS
+# ------------------------------------------------------------------------
+
 class ProfileDetails(enum.Enum):
+    """
+    Enumeration of profile detail fields used throughout the application.
+    Ensures consistent field naming across components.
+    """
     ID = "id"
     DreamJob = "dream_job"
     CurrentSkills = "current_skills"
     Education = "education"
     
 class CareerSkills(enum.Enum):
+    """
+    Enumeration of key career skills that can be recommended to users.
+    Provides standardized skill categories for assessment and recommendations.
+    """
     COMMUNICATION = "communication"
     LEADERSHIP = "leadership"
     TEAMWORK = "teamwork"
@@ -23,8 +34,20 @@ class CareerSkills(enum.Enum):
     EMOTIONAL_INTELLIGENCE = "emotional_intelligence"
     CRITICAL_THINKING = "critical_thinking"
 
-class AssistantFnc(llm.FunctionContext):  # Now this should work with the correct import
+# ASSISTANT FUNCTION CONTEXT
+# ------------------------------------------------------------------------
+
+class AssistantFnc(llm.FunctionContext):
+    """
+    Function context for the AI assistant that handles career profiles and recommendations.
+    Provides methods for profile management, skill recommendations, and suggestions.
+    """
+    
     def __init__(self):
+        """
+        Initialize the assistant function context.
+        Sets up empty profile details and recommended skills list.
+        """
         # Call the parent class's __init__ method to properly initialize _fncs
         super().__init__()
         
@@ -37,6 +60,12 @@ class AssistantFnc(llm.FunctionContext):  # Now this should work with the correc
         self._recommended_skills = []
         
     def get_profile_str(self):
+        """
+        Generate a human-readable string representation of the user profile.
+        
+        Returns:
+            str: Formatted profile information or "No profile available" message
+        """
         if not self.has_profile():
             return "No profile available"
         
@@ -47,6 +76,16 @@ class AssistantFnc(llm.FunctionContext):  # Now this should work with the correc
     
     @llm.ai_callable(description="lookup a career profile by ID")
     def lookup_profile(self, id: Annotated[str, llm.TypeInfo(description="The ID of the user to lookup")]):
+        """
+        Look up a career profile by ID from the database.
+        Updates the current profile if found.
+        
+        Args:
+            id (str): The unique identifier for the user profile
+            
+        Returns:
+            str: Success message with profile details or "Profile not found" message
+        """
         logger.info("lookup profile - id: %s", id)
         
         result = DB.get_profile_by_id(id)
@@ -64,6 +103,12 @@ class AssistantFnc(llm.FunctionContext):  # Now this should work with the correc
     
     @llm.ai_callable(description="get the details of the current profile")
     def get_profile_details(self):
+        """
+        Retrieve the details of the currently loaded profile.
+        
+        Returns:
+            str: Formatted profile information or "No profile available" message
+        """
         if not self.has_profile():
             return "No profile available"
         
@@ -77,6 +122,18 @@ class AssistantFnc(llm.FunctionContext):  # Now this should work with the correc
         current_skills: Annotated[str, llm.TypeInfo(description="The user's current skills")],
         education: Annotated[str, llm.TypeInfo(description="The user's educational background")]
     ):
+        """
+        Create a new career profile in the database and update current profile state.
+        
+        Args:
+            id (str): Unique identifier for the user
+            dream_job (str): User's career aspiration
+            current_skills (str): User's existing skills
+            education (str): User's educational background
+            
+        Returns:
+            str: Success message or failure notification
+        """
         logger.info("create profile - id: %s, dream_job: %s, current_skills: %s, education: %s", 
                    id, dream_job, current_skills, education)
         
@@ -98,6 +155,15 @@ class AssistantFnc(llm.FunctionContext):  # Now this should work with the correc
         self,
         skills: Annotated[list[str], llm.TypeInfo(description="List of soft skills recommended for the dream job")]
     ):
+        """
+        Store and return recommended skills for the user's dream job.
+        
+        Args:
+            skills (list[str]): List of skills recommended for the user
+            
+        Returns:
+            str: Formatted recommendation message or error if no profile
+        """
         if not self.has_profile():
             return "No profile available to recommend skills for"
         
@@ -112,13 +178,21 @@ class AssistantFnc(llm.FunctionContext):  # Now this should work with the correc
         self,
         skill: Annotated[str, llm.TypeInfo(description="The specific skill to get suggestions for")]
     ):
+        """
+        Provide detailed suggestions for developing a specific career skill.
+        
+        Args:
+            skill (str): The skill to get development suggestions for
+            
+        Returns:
+            str: Formatted suggestions including importance, exercises and resources
+                 or a generic message if skill not found
+        """
         if not self.has_profile():
             return "No profile available"
         
         dream_job = self._profile_details[ProfileDetails.DreamJob]
         
-        # Here we would normally do database lookup for suggestions
-        # For now, returning placeholders
         suggestions = {
             "communication": {
                 "importance": f"Strong communication is crucial for success as a {dream_job}",
@@ -153,4 +227,10 @@ class AssistantFnc(llm.FunctionContext):  # Now this should work with the correc
             return f"I don't have specific suggestions for {skill} yet, but I can help you research development methods."
     
     def has_profile(self):
+        """
+        Check if a profile is currently loaded.
+        
+        Returns:
+            bool: True if a profile is loaded, False otherwise
+        """
         return self._profile_details[ProfileDetails.ID] != ""
