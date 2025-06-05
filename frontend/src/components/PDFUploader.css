@@ -1,0 +1,211 @@
+/* PDFUploader Component Styles */
+
+.pdf-uploader {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 16px;
+  padding: 2rem;
+  margin: 1.5rem 0;
+  color: white;
+  box-shadow: 0 8px 32px rgba(102, 126, 234, 0.2);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.pdf-uploader h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+.upload-description {
+  margin: 0 0 1.5rem 0;
+  opacity: 0.9;
+  line-height: 1.5;
+}
+
+.upload-zone {
+  border: 2px dashed rgba(255, 255, 255, 0.3);
+  border-radius: 12px;
+  padding: 2rem;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.05);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  position: relative;
+  min-height: 120px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.upload-zone:hover {
+  border-color: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+.upload-zone.drag-over {
+  border-color: #4ade80;
+  background: rgba(74, 222, 128, 0.1);
+  transform: scale(1.02);
+}
+
+.upload-zone.uploading {
+  border-color: #fbbf24;
+  background: rgba(251, 191, 36, 0.1);
+  cursor: not-allowed;
+}
+
+.upload-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  opacity: 0.8;
+}
+
+.upload-text {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.1rem;
+}
+
+.file-select-label {
+  color: #60a5fa;
+  text-decoration: underline;
+  cursor: pointer;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.file-select-label:hover {
+  color: #93c5fd;
+}
+
+.file-input {
+  display: none;
+}
+
+.upload-limits {
+  margin: 0;
+  font-size: 0.9rem;
+  opacity: 0.7;
+}
+
+.upload-progress {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  border-top: 4px solid #60a5fa;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.upload-status {
+  margin-top: 1rem;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.upload-status.success {
+  background: rgba(34, 197, 94, 0.2);
+  border: 1px solid rgba(34, 197, 94, 0.3);
+  color: #86efac;
+}
+
+.upload-status.error {
+  background: rgba(239, 68, 68, 0.2);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: #fca5a5;
+}
+
+.upload-status.info {
+  background: rgba(59, 130, 246, 0.2);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  color: #93c5fd;
+}
+
+.reset-button {
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  font-size: 1.2rem;
+  padding: 0.25rem;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+.reset-button:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.upload-benefits {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.upload-benefits h4 {
+  margin: 0 0 1rem 0;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.upload-benefits ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.upload-benefits li {
+  margin: 0.5rem 0;
+  padding-left: 0;
+  opacity: 0.9;
+  line-height: 1.4;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .pdf-uploader {
+    padding: 1.5rem;
+    margin: 1rem 0;
+  }
+  
+  .upload-zone {
+    padding: 1.5rem;
+    min-height: 100px;
+  }
+  
+  .upload-icon {
+    font-size: 2.5rem;
+  }
+  
+  .upload-text {
+    font-size: 1rem;
+  }
+}
+
+/* Integration with existing voice assistant styles */
+.voice-assistant-container .pdf-uploader {
+  margin-bottom: 2rem;
+}
+
+.pdf-uploader + .logo-container {
+  margin-top: 1rem;
+}
