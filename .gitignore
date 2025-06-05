@@ -1,5 +1,10 @@
 # Environment variables (IMPORTANT: Never commit API keys!)
-ai/
+# Virtual environment folders (but keep requirements.txt)
+ai/Lib/
+ai/Scripts/
+ai/Include/
+ai/share/
+ai/pyvenv.cfg
 .vscode/
 __pycache__/
 
