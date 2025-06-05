@@ -20,7 +20,7 @@ source ai/bin/activate
 # Make sure your virtual environment is activated
 
 cd backend
-pip install -r requirements.txt
+pip install -r ./ai/requirements.txt
 
 # Check if the .env file contains all the required values in the backend directory
 
