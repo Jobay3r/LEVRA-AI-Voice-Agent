@@ -8,7 +8,7 @@ import {
 import { Track } from "livekit-client";
 import { useEffect, useState } from "react";
 import "./SimpleVoiceAssistant.css";
-import logoGif from "../assets/Reputy_Logo_full_animation_BIG.gif";
+import levraLogo from "../assets/LEVRA2.png";
 
 /**
  * Message Component
@@ -68,7 +68,7 @@ const SimpleVoiceAssistant = () => {
     <div className="voice-assistant-container">
       {/* Branding and logo section */}
       <div className="logo-container">
-        <img src={logoGif} alt="Reputy Logo Animation" className="logo-animation" />
+        <img src={levraLogo} alt="LEVRA - Human Skills Training Platform" className="logo-animation" />
       </div>
       
       {/* Audio visualization component */}
@@ -91,13 +91,14 @@ const SimpleVoiceAssistant = () => {
           ) : (
             /* Show guidance tips when no conversation has started */
             <div className="tips-section">
-              <h3>Tips for your career discussion:</h3>
+              <h3>Ready for Immersive Human Skills Training? 🚀</h3>
               <ul className="tips-list">
-                <li>Share your dream job or career aspiration</li>
-                <li>Mention your educational background and current skills</li>
-                <li>Ask about specific soft skills you want to develop</li>
-                <li>Request resources for skill development</li>
-                <li>Discuss how to overcome career challenges</li>
+                <li>🎯 Choose your focus: communication, leadership, teamwork, or conflict resolution</li>
+                <li>🏢 Tell me your role/industry for realistic workplace scenarios</li>
+                <li>💪 Jump into interactive practice situations</li>
+                <li>📊 Get instant feedback with specific skill scores</li>
+                <li>🔄 Adapt your learning path based on real-time performance</li>
+                <li>🛡️ Practice safely - make mistakes and learn without consequences</li>
               </ul>
             </div>
           )}

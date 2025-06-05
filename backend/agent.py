@@ -9,7 +9,7 @@ from livekit.agents import (
 from livekit.agents.multimodal import MultimodalAgent
 from dotenv import load_dotenv
 from api import AssistantFnc
-from prompts import WELCOME_MESSAGE, INSTRUCTIONS, SKILL_ASSESSMENT_MESSAGE, PROVIDE_SUGGESTIONS
+from prompts import WELCOME_MESSAGE, INSTRUCTIONS, SKILL_ASSESSMENT_MESSAGE, PROVIDE_FEEDBACK
 import os
 import sys
 import importlib

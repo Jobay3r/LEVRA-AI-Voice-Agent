@@ -71,8 +71,8 @@ const LiveKitModal = ({ setShowSupport }) => {
           {/* Step 1: Name collection form */}
           {isSubmittingName ? (
             <form onSubmit={handleNameSubmit} className="name-form">
-              <h2>Connect with Your Career Mentor</h2>
-              <p>Enter your name to start a personalized career guidance session</p>
+              <h2>Start Your Human Skills Journey</h2>
+              <p>Enter your name to begin immersive skills training</p>
               <input
                 type="text"
                 value={name}
@@ -80,7 +80,7 @@ const LiveKitModal = ({ setShowSupport }) => {
                 placeholder="Your name"
                 required
               />
-              <button type="submit">Start Career Mentoring</button>
+              <button type="submit">Begin Training</button>
               <button
                 type="button"
                 className="cancel-button"

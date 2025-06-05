@@ -5,10 +5,11 @@
   width: 100%;
   height: 100%;
   padding: 16px;
-  background-color: rgba(255, 255, 255, 0.6);
-  backdrop-filter: blur(10px);
+  background: rgba(26, 26, 46, 0.95);
+  backdrop-filter: blur(20px);
   border-radius: 12px;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
   overflow: hidden;
 }
 
@@ -46,14 +47,15 @@
 .visualizer-container {
   width: 100%;
   height: 120px;
-  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.3));
+  background: rgba(255, 255, 255, 0.03);
   border-radius: 16px;
   padding: 16px;
   margin-bottom: 24px;
-  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.03);
-  border: 1px solid rgba(230, 230, 230, 0.8);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   overflow: hidden;
   position: relative;
+  backdrop-filter: blur(10px);
 }
 
 /* Hide the problematic rightmost bars */
@@ -84,12 +86,12 @@
   height: 280px;
   overflow-y: auto;
   width: 100%;
-  border: 1px solid rgba(230, 230, 230, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 16px;
   margin-top: 16px;
-  background-color: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(5px);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
 }
 
 .message {
@@ -101,22 +103,24 @@
 }
 
 .message-agent {
-  background-color: rgba(74, 111, 165, 0.9);
+  background: linear-gradient(135deg, #5b73db, #8b45c0);
   color: white;
   border-top-left-radius: 4px;
   margin-right: auto;
   margin-left: 10px;
-  box-shadow: 0 2px 8px rgba(74, 111, 165, 0.2);
+  box-shadow: 0 8px 32px rgba(91, 115, 219, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .message-user {
-  background-color: rgba(240, 245, 250, 0.9);
-  color: #333;
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.9);
   border-top-right-radius: 4px;
   margin-left: auto;
   margin-right: 10px;
   text-align: right;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .message-text {
@@ -126,19 +130,22 @@
 
 .tips-section {
   margin-top: 10px;
-  background-color: rgba(245, 247, 250, 0.7);
+  background: rgba(255, 255, 255, 0.03);
   border-radius: 12px;
   padding: 18px;
   font-size: 0.95rem;
-  border: 1px solid rgba(230, 230, 230, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
 }
 
 .tips-section h3 {
-  color: #4a6fa5;
+  background: linear-gradient(45deg, #4ECDC4, #FF6B6B);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   margin-bottom: 14px;
   font-size: 1.1rem;
   text-align: center;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .tips-list {
@@ -150,7 +157,7 @@
   margin-bottom: 10px;
   padding-left: 18px;
   position: relative;
-  color: #555;
+  color: rgba(255, 255, 255, 0.8);
 }
 
 .tips-list li:before {
