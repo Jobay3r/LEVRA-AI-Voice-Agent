@@ -243,3 +243,10 @@ backend/*_prompts.py
 backend/PROMPT_*.py
 backend/prompt_*.py
 backend/*_PROMPT.py
+
+# =============================================
+# FAISS INDEX FILES
+# =============================================
+**/faiss_index/
+*.faiss
+*.pkl
