@@ -223,3 +223,23 @@ demo/
 *_backup.*
 *_original_backup.*
 prompts_original_backup.py
+
+# =============================================
+# PROMPTS & CONFIGURATION FILES
+# =============================================
+# Prompt configuration files
+prompts.py
+prompts_*.py
+*_prompts.py
+prompts_original_backup.py
+PROMPT_*.py
+prompt_*.py
+*_PROMPT.py
+
+# Sensitive business logic
+backend/prompts.py
+backend/prompts_*.py
+backend/*_prompts.py
+backend/PROMPT_*.py
+backend/prompt_*.py
+backend/*_PROMPT.py
