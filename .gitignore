@@ -196,3 +196,30 @@ Thumbs.db
 .settings/
 .classpath
 .factorypath
+
+# =============================================
+# DEMO & DOCUMENTATION FILES
+# =============================================
+# Demo files
+demo_*.py
+*_demo.py
+final_integration_demo.py
+DEMO.md
+demo/
+
+# Documentation and presentation files
+*.pdf
+*.pptx
+*.doc
+*.docx
+*.xls
+*.xlsx
+*.ppt
+*.key
+*.pages
+*.numbers
+
+# Backup files
+*_backup.*
+*_original_backup.*
+prompts_original_backup.py
